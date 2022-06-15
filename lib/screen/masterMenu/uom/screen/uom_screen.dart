@@ -1,5 +1,4 @@
 import 'package:fl_pos_app/screen/masterMenu/uom/bloc/uom_bloc.dart';
-import 'package:fl_pos_app/screen/masterMenu/uom/data/uom_datasource.dart';
 import 'package:fl_pos_app/utils/base_template.dart';
 import 'package:fl_pos_app/widget/card_template.dart';
 import 'package:fl_pos_app/widget/loading_screen.dart';
@@ -17,13 +16,6 @@ class UomScreen extends BaseTemplate {
 }
 
 class UomScreenState extends BaseTemplateState<UomScreen> {
-  // final List<String> __columns = [
-  //   "No",
-  //   "Satuan",
-  //   "Deskripsi",
-  //   "Status",
-  //   "Aksi",
-  // ];
   final List<PlutoColumn> columns = <PlutoColumn>[
     PlutoColumn(
       title: 'Id',
@@ -68,6 +60,7 @@ class UomScreenState extends BaseTemplateState<UomScreen> {
             ? const Center(child: LoadingScreen())
             : CardTemplate(
                 title: widget.title,
+                // showAddButton: true,
                 content: ResponsiveGridRow(
                   children: [
                     ResponsiveGridCol(
@@ -76,20 +69,23 @@ class UomScreenState extends BaseTemplateState<UomScreen> {
                       sm: 12,
                       xl: 12,
                       child: SizedBox(
-                        height: 150,
+                        height: 200,
                         child: PlutoGrid(
                           columns: columns,
                           rows: (state.listUom ?? []).map((e) {
-                            return PlutoRow(cells: {
-                              'id': PlutoCell(value: e.id),
-                              'name': PlutoCell(value: e.name),
-                              'description': PlutoCell(value: e.description),
-                              'isvisible': PlutoCell(
-                                  value: (e.visible ?? false)
-                                      ? "Aktif"
-                                      : "Tidak Aktif"),
-                              'action': PlutoCell(),
-                            });
+                            int idx = (state.listUom ?? []).indexOf(e);
+                            return PlutoRow(
+                              cells: {
+                                'id': PlutoCell(value: idx + 1),
+                                'name': PlutoCell(value: e.name),
+                                'description': PlutoCell(value: e.description),
+                                'isvisible': PlutoCell(
+                                    value: (e.visible ?? false)
+                                        ? "Aktif"
+                                        : "Tidak Aktif"),
+                                'action': PlutoCell(),
+                              },
+                            );
                           }).toList(),
                           onLoaded: (PlutoGridOnLoadedEvent event) {
                             stateManager = event.stateManager;
@@ -103,31 +99,6 @@ class UomScreenState extends BaseTemplateState<UomScreen> {
                           ),
                         ),
                       ),
-                      // PaginatedDataTable(
-                      //   showCheckboxColumn: false,
-                      //   columns: __columns.map((e) {
-                      //     return DataColumn(
-                      //       label: Flexible(
-                      //         child: Text(
-                      //           e.toUpperCase(),
-                      //           textAlign: TextAlign.center,
-                      //           overflow: TextOverflow.ellipsis,
-                      //           style: const TextStyle(
-                      //             color: Colors.black,
-                      //             fontWeight: FontWeight.bold,
-                      //             fontSize: 15,
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     );
-                      //   }).toList(),
-                      //   availableRowsPerPage: const [5, 10, 20],
-                      //   rowsPerPage: 10,
-                      //   source: UomDataSource(
-                      //     listUom: state.listUom ?? [],
-                      //     onViewRowSelect: (index) {},
-                      //   ),
-                      // ),
                     )
                   ],
                 ),
