@@ -18,34 +18,50 @@ class UomScreen extends BaseTemplate {
 class UomScreenState extends BaseTemplateState<UomScreen> {
   final List<PlutoColumn> columns = <PlutoColumn>[
     PlutoColumn(
-      title: 'Id',
+      title: 'NO',
       field: 'id',
       type: PlutoColumnType.number(),
+      width: 80,
+      readOnly: true,
+      titleTextAlign: PlutoColumnTextAlign.center,
     ),
     PlutoColumn(
       title: 'Satuan',
       field: 'name',
       type: PlutoColumnType.text(),
+      readOnly: true,
+      titleTextAlign: PlutoColumnTextAlign.center,
     ),
     PlutoColumn(
       title: 'Deskripsi',
       field: 'description',
       type: PlutoColumnType.text(),
+      readOnly: true,
+      width: 300,
+      titleTextAlign: PlutoColumnTextAlign.center,
     ),
     PlutoColumn(
       title: 'Status',
       field: 'isvisible',
       type: PlutoColumnType.text(),
+      readOnly: true,
+      textAlign: PlutoColumnTextAlign.center,
+      titleTextAlign: PlutoColumnTextAlign.center,
     ),
     PlutoColumn(
-        title: 'Aksi',
-        field: 'action',
-        type: PlutoColumnType.text(),
-        renderer: (plutoContext) {
-          return const Icon(FontAwesomeIcons.eye);
-        }),
+      title: 'Aksi',
+      field: 'action',
+      type: PlutoColumnType.number(),
+      readOnly: true,
+      titleTextAlign: PlutoColumnTextAlign.center,
+      renderer: (plutoContext) {
+        return const Icon(FontAwesomeIcons.eye);
+      },
+    ),
   ];
-  late final PlutoGridStateManager stateManager;
+
+  late PlutoGridStateManager stateManager;
+
   @override
   void initState() {
     context.read<UomBloc>().add(LoadUom());
@@ -89,6 +105,8 @@ class UomScreenState extends BaseTemplateState<UomScreen> {
                           }).toList(),
                           onLoaded: (PlutoGridOnLoadedEvent event) {
                             stateManager = event.stateManager;
+                            // ignore: avoid_print
+                            print(event);
                           },
                           onChanged: (PlutoGridOnChangedEvent event) {
                             // ignore: avoid_print

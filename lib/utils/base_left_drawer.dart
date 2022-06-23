@@ -46,6 +46,7 @@ class LeftDrawer extends StatelessWidget {
                 context,
                 NavigateTo.homeRoute.route,
                 transition: TransitionType.none,
+                clearStack: true,
               );
             },
           ),
@@ -61,6 +62,7 @@ class LeftDrawer extends StatelessWidget {
                     context,
                     NavigateTo.itemRoute.route,
                     transition: TransitionType.none,
+                    clearStack: true,
                   );
                 },
               ),
@@ -72,6 +74,7 @@ class LeftDrawer extends StatelessWidget {
                     context,
                     NavigateTo.categoryRoute.route,
                     transition: TransitionType.none,
+                    clearStack: true,
                   );
                 },
               ),
@@ -83,6 +86,7 @@ class LeftDrawer extends StatelessWidget {
                     context,
                     NavigateTo.brandRoute.route,
                     transition: TransitionType.none,
+                    clearStack: true,
                   );
                 },
               ),
@@ -94,6 +98,7 @@ class LeftDrawer extends StatelessWidget {
                     context,
                     NavigateTo.uomRoute.route,
                     transition: TransitionType.none,
+                    clearStack: true,
                   );
                 },
               ),

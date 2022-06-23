@@ -4,7 +4,10 @@ import 'package:fl_pos_app/screen/masterMenu/uom/bloc/uom_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'api/interceptors/injector.dart';
+
 void main() {
+  setupLocator();
   runApp(const MyApp());
 }
 
