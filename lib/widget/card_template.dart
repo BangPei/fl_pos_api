@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CardTemplate extends StatelessWidget {
   final String title;
   final Color? color;
   final Widget? content;
   final VoidCallback? onPressed;
-  // final bool? showAddButton;
+  final bool? showAddButton;
   const CardTemplate({
     this.color,
     required this.title,
     this.content,
     Key? key,
     this.onPressed,
-    // this.showAddButton,
+    this.showAddButton,
   }) : super(key: key);
 
   @override
@@ -29,15 +28,7 @@ class CardTemplate extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DefaultCardTitle(title),
-                ActionAddButton(
-                  onPressed: onPressed,
-                )
-              ],
-            ),
+            DefaultCardTitle(title, showAddButton: showAddButton),
             content ?? const SizedBox.shrink(),
           ],
         ),
@@ -48,15 +39,23 @@ class CardTemplate extends StatelessWidget {
 
 class DefaultCardTitle extends StatelessWidget {
   final String title;
+  final bool? showAddButton;
 
-  const DefaultCardTitle(this.title, {Key? key}) : super(key: key);
+  const DefaultCardTitle(this.title, {Key? key, this.showAddButton})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Text(
-        title,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+          ),
+          ActionAddButton(onPressed: () {}, showAddButton: showAddButton),
+        ],
       ),
     );
   }
@@ -72,31 +71,27 @@ class ActionAddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Visibility(
       visible: showAddButton ?? false,
-      child: Column(
-        children: [
-          MaterialButton(
-            minWidth: 120,
-            height: 40,
-            onPressed: onPressed,
-            color: Colors.indigoAccent[400],
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40),
-            ),
-            child: Row(
-              children: const [
-                Icon(FontAwesomeIcons.plus, color: Colors.white),
-                Text(
-                  "Tambah",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
+      child: MaterialButton(
+        minWidth: 120,
+        height: 40,
+        onPressed: onPressed,
+        color: Colors.indigoAccent[400],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Row(
+          children: const [
+            Icon(Icons.add, color: Colors.white),
+            Text(
+              "Tambah",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+                color: Colors.white,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

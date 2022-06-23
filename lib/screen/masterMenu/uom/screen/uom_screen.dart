@@ -60,7 +60,7 @@ class UomScreenState extends BaseTemplateState<UomScreen> {
             ? const Center(child: LoadingScreen())
             : CardTemplate(
                 title: widget.title,
-                // showAddButton: true,
+                showAddButton: true,
                 content: ResponsiveGridRow(
                   children: [
                     ResponsiveGridCol(
